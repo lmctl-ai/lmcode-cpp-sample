@@ -92,3 +92,19 @@ all sample ports, not silently rewrite expected files in CI. CI tests native Lin
 macOS and Windows builds; workflow_dispatch selects a newer published compiler.
 The pinned-bytecode reproducibility check intentionally reports compiler drift
 for review. Standard library and schema bytes are vendored with MIT licensing.
+
+## Native installation check
+
+The manual **Release and lmscript install** workflow first tests every native
+build, publishes a pinned **prerelease** (never moves `latest`), then uses a fresh
+cache and `lmscript install` on Linux x64/arm64, macOS x64/arm64 and Windows x64
+and runs the same corpus against the installed bytes. Existing tags/assets are
+never overwritten. For the initial version:
+
+```sh
+lmscript install github:lmctl-ai/lmcode-cpp-sample@v0.1.0
+```
+
+[installed-path.lms](scripts/installed-path.lms) shows the exact compiler discovery
+contract (`cli` + pinned `install`); its final line reports the installed native
+path. Release binaries include SHA256SUMS, MIT licensing and runtime notices.

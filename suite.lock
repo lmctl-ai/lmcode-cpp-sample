@@ -1,9 +1,9 @@
 {
   "repo": "lmctl-ai/lmcode-cpp",
-  "commit": "3ad43a83818d91280363d3318aae5ff005d9e507",
+  "commit": "dc8368861b6d8c69f8ebf61d1cc48321382acb7f",
   "sha256": {
     "CONTRACT.md": "a10548dfc4c7de3554b4bb5a6e819ab0147111d237fef2e6ee71f365b1f66480",
-    "README.md": "9538b3aa852c59008ca219091e6bfef922e61114a8706c14e173badb8d74d07d",
+    "README.md": "29141e0262281cbfeb38a1f57a85f01295b7dd1f336d61bfaf47e7644d278168",
     "audit.py": "60de77fdc554480a35b8650d5196b1b4209408b3beee95dc3ab59c643e6bfe04",
     "bytecode/001-literals.dslb": "bc4643a39bbb782aa348c1be9817cb61d6a4116c1d4cf2adfd1b9d51cb618b95",
     "bytecode/002-arithmetic.dslb": "1dc54bbb0ae946cc39a5a3fb4ca27568f6b79a64456361fe1958a7eb25303cb5",
@@ -212,6 +212,6 @@
     "run-suite.py": "e5d0cb19eb813d53f89dc2702c2cc2f61083b1ee43a0460edbe3def76f3965fb",
     "run-suite.sh": "8daa2cd664737e7c5d01d3aacb22bcf2ed28b8f3a5cbf1abac7455ac0eaa708f",
     "sample.dsl.json": "fe1a6cd5430f164a8f882062d38f3a1e678365d5a32a8d369b1bf5ba6dbdd854",
-    "test_runner.py": "1fbb3567e6690c0262e7e269c053280212f59fd27b684059ce43c930b28760e3"
+    "test_runner.py": "43178edfaf7d095e6ee57c9c23c7215934acdfe61bd60a83e7bb2648069196f3"
   }
 }
