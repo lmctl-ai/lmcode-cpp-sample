@@ -75,7 +75,7 @@ changed JSON whitespace, stale fixtures, empty manifests and missing std calls f
 PASS: all 181 standard signatures are imported by the corpus
 PASS: all 45 host signatures are imported by the corpus
 PASS host CLI protocol (0/2/3/4; schema/signatures/discovery)
-PASS 87/87 sample cases
+PASS 90/90 sample cases
 PASS compiler reproduces all pinned bytecode
 ```
 
@@ -142,4 +142,4 @@ v1 compiler explicitly skips the five literal sources; use a literal-capable
 `LMSCRIPT_BIN` to reproduce all cases, or set `LMCODE_REQUIRE_LITERAL_COMPILER=1`
 to reject that temporary compatibility skip. SDK and suite locks remain exact.
 
-The v3 pin adds four strict byte codecs and six independent map snapshot methods. Programs 301–305 exercise them in the 87-case C++ corpus; other SDK v3 ports remain pending.
+The v3 pin adds four strict byte codecs and six independent map snapshot methods. Programs 301–305 and 311–313 exercise them in the 90-case C++ corpus; other SDK v3 ports remain pending.
