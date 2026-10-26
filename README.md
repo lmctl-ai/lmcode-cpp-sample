@@ -66,15 +66,15 @@ npm install --global @lmctl-ai/lmctl@0.2.420
 
 The [full feature -> program matrix](sample-suite/README.md) links every source,
 bytecode and oracle. The C++ reference generated expectations, then an independent
-Go SDK host matched **50/50** byte-for-byte; approximate math uses assertions rather
+Go SDK host matched **66/66** byte-for-byte; approximate math uses assertions rather
 than platform-specific decimal traces. Negative runner controls ensure wrong exits,
 changed JSON whitespace, stale fixtures, empty manifests and missing std calls fail.
 
 ```text
 PASS: all 72 standard signatures are imported by the corpus
-PASS: all 27 host signatures are imported by the corpus
+PASS: all 45 host signatures are imported by the corpus
 PASS host CLI protocol (0/2/3/4; schema/signatures/discovery)
-PASS 50/50 sample cases
+PASS 66/66 sample cases
 PASS compiler reproduces all pinned bytecode
 ```
 
@@ -105,9 +105,32 @@ and runs the same corpus against the installed bytes. Existing tags/assets are
 never overwritten. For the initial version:
 
 ```sh
-lmscript install github:lmctl-ai/lmcode-cpp-sample@v0.1.0
+lmscript install github:lmctl-ai/lmcode-cpp-sample@v0.2.0
 ```
 
 [installed-path.lms](scripts/installed-path.lms) shows the exact compiler discovery
 contract (`cli` + pinned `install`); its final line reports the installed native
 path. Release binaries include SHA256SUMS, MIT licensing and runtime notices.
+
+## Conversions
+
+| lmcode value | C++ representation | Boundary rule |
+|---|---|---|
+| int | `std::int64_t` | Never `int`/Windows `long`; wrap through uint64 arithmetic. |
+| float | `double` | Preserve binary64, signed zero, NaN/inf and subnormals; `str` is canonical G15. |
+| bool | `bool` | Boolean is a distinct tag, not an integer convention. |
+| string | `std::string` | Raw bytes + size; NUL/invalid UTF-8 are valid. Never use strlen/UTF-8 replacement. |
+| enum | string-backed Value | Register the enum's schema type; preserve exact member spelling. |
+| object | type tag + `void*` | Stable owned arena, preserve identity; typed null differs from void. |
+| void | `Value::none()` | Produces no stack result. |
+| std list/map | SDK arena pointer | Copy data through callbacks; allocate returns in registry arena; expire after run. |
+
+Programs 049–063 cover conversion edges: invalid file bytes, one-MiB strings,
+all four collection types in both directions, nullable/aliased/wrong handles,
+nested located callback errors, 255 arguments, a 509-slot operand stack, long
+imports and a million-iteration loop. Recursion is a checked compiler rejection;
+acyclic inline nesting is exercised instead. See the exact shared contract.
+
+Build all eight ports and compare their **actual** outputs to one another as well
+as the oracle with the canonical SDK's `sample-suite/run-all-samples.sh --all`.
+Unimplemented ports fail visibly; they are never silently skipped.

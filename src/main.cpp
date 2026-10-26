@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
     try {
         sample::Host host;
         if (argc == 2 && std::string(argv[1]) == "--version") {
-            std::cout << "lmcode-cpp-sample 0.1.0\n";
+            std::cout << "lmcode-cpp-sample 0.2.0\n";
             return 0;
         }
         if ((argc == 2 || (argc == 3 && std::string(argv[2]) == "--json")) &&

@@ -8,6 +8,7 @@ Host::Host() {
     using dslvm::Value;
     // Schema context names must match exactly; context() supplies live instances.
     registry.context("shop", "Shop").context("ledger", "Ledger");
+    register_conversions(registry);
     dslvm::stdlib::register_testing(registry); // Explicit opt-in: print/assert_close.
     for (int64_t cents : {125, 250, 375})
         shop.items.values.push_back(static_cast<Money*>(money(cents).obj));
@@ -30,27 +31,28 @@ Host::Host() {
 
     // Values are tagged. The loader binds these declared signatures before run().
     registry.method("Money", "amount", {}, "int", [](void* self, Args&) {
-        return Value::integer(static_cast<Money*>(self)->cents);
+        return Value::integer(money_ref(self).cents);
     });
-    registry.method("Money", "currency", {}, "Currency", [](void*, Args&) {
+    registry.method("Money", "currency", {}, "Currency", [](void* self, Args&) {
+        (void)money_ref(self);
         return Value::string("USD"); // Enums are string-backed at the host boundary.
     });
     registry.method("Money", "plus", {"Money"}, "Money", [this](void* self, Args& a) {
-        return money(add(static_cast<Money*>(self)->cents, static_cast<Money*>(a[0].obj)->cents));
+        return money(add(money_ref(self).cents, money_ref(a[0].obj).cents));
     });
     registry.method("Money", "minus", {"Money"}, "Money", [this](void* self, Args& a) {
-        const auto left = uint64_t(static_cast<Money*>(self)->cents);
-        const auto right = uint64_t(static_cast<Money*>(a[0].obj)->cents);
+        const auto left = uint64_t(money_ref(self).cents);
+        const auto right = uint64_t(money_ref(a[0].obj).cents);
         return money(dslvm::from_twos_complement(left - right));
     });
     registry.method("Money", "times", {"int"}, "Money", [this](void* self, Args& a) {
-        return money(dslvm::from_twos_complement(uint64_t(static_cast<Money*>(self)->cents) * uint64_t(a[0].i)));
+        return money(dslvm::from_twos_complement(uint64_t(money_ref(self).cents) * uint64_t(a[0].i)));
     });
     registry.method("Money", "neg", {}, "Money", [this](void* self, Args&) {
-        return money(dslvm::from_twos_complement(uint64_t(0) - uint64_t(static_cast<Money*>(self)->cents)));
+        return money(dslvm::from_twos_complement(uint64_t(0) - uint64_t(money_ref(self).cents)));
     });
     registry.method("Money", "set", {"int"}, "Money", [](void* self, Args& a) {
-        static_cast<Money*>(self)->cents = a[0].i;
+        money_ref(self).cents = a[0].i;
         return Value::object("Money", self); // Schema returns:self normalizes to Money.
     });
 
@@ -88,7 +90,7 @@ Host::Host() {
     // Void, fluent mutation, and overloads can coexist on a single receiver.
     registry.method("Ledger", "record", {"Money"}, "Ledger", [](void* self, Args& a) {
         auto& ledger = *static_cast<Ledger*>(self);
-        ledger.balance = add(ledger.balance, static_cast<Money*>(a[0].obj)->cents);
+        ledger.balance = add(ledger.balance, money_ref(a[0].obj).cents);
         ledger.entries = add(ledger.entries, 1);
         return Value::object("Ledger", self);
     });

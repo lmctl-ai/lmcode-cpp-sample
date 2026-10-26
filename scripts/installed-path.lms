@@ -1,5 +1,5 @@
 // The release CI substitutes its immutable tag into this template before use.
-p = _lmcode_ cli="lmcode-cpp-sample" install="github:lmctl-ai/lmcode-cpp-sample@v0.1.0";
+p = _lmcode_ cli="lmcode-cpp-sample" install="github:lmctl-ai/lmcode-cpp-sample@v0.2.0";
 print("installed host");
 end _lmcode_
 println(dsl_cli(p)[0]);

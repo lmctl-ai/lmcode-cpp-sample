@@ -9,6 +9,7 @@
 #include <vector>
 
 namespace sample {
+void register_conversions(dslvm::Registry& registry);
 struct Money { int64_t cents; };
 struct Items { std::vector<Money*> values; };
 struct Shop { Items items; };
@@ -30,6 +31,10 @@ public:
 
 private:
     std::vector<std::unique_ptr<Money>> arena;
+    static Money& money_ref(void* pointer) {
+        if (!pointer) throw dslvm::Error("money: null handle");
+        return *static_cast<Money*>(pointer);
+    }
     dslvm::Value money(int64_t cents) {
         arena.push_back(std::make_unique<Money>(Money{cents}));
         return dslvm::Value::object("Money", arena.back().get());
