@@ -135,3 +135,9 @@ acyclic inline nesting is exercised instead. See the exact shared contract.
 Build all eight ports and compare their **actual** outputs to one another as well
 as the oracle with the canonical SDK's `sample-suite/run-all-samples.sh --all`.
 Unimplemented ports fail visibly; they are never silently skipped.
+
+The pinned corpus includes compiler literals from lmctl-mono `0ce49614`. All
+pinned bytecode runs on this std-v2 host. Source reproduction with a verified
+v1 compiler explicitly skips the five literal sources; use a literal-capable
+`LMSCRIPT_BIN` to reproduce all cases, or set `LMCODE_REQUIRE_LITERAL_COMPILER=1`
+to reject that temporary compatibility skip. SDK and suite locks remain exact.

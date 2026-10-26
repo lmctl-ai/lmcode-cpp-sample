@@ -162,3 +162,25 @@ repos on Linux; during rollout it intentionally fails until every port is implem
 ## Catalog v2 data examples
 
 Programs 101-105 exercise all 99 new container/Json imports; 106-108 pin their runtime traps. Expectations are recorded only from the rebuilt C++ reference. The all-samples matrix reports known released-v1 SDK pins (or exact legacy-only registry surfaces for unpinned Go builds) as SKIP, not PASS; partial/declared-v2 implementations still execute and fail normally. A skipped port does not establish v2 interoperability. Single-host protocol/run-suite checks never skip.
+
+## Compiler literal cases
+
+Cases 201–205 cover contextual word/numeric lists, int64 boundaries, all typed map
+literals, single evaluation order, raw JSONC documents and legacy bindings. They
+require the compiler literal implementation from lmctl-mono `0ce49614` (set
+`LMSCRIPT_BIN` to its built lmscript until a containing release is published).
+Their manifest entries declare `compiler_features: ["lmcode-literals-v1"]`;
+source reproduction must report an unsupported compiler explicitly. Pinned v5
+bytecode still runs directly on a std-v2 host. `compile.py --output DIR
+--exclude-feature lmcode-literals-v1` is a partial reproduction check and never
+rewrites the canonical manifest; it is not a complete compiler validation.
+
+`run-all-samples.sh --ports cpp,c,rust,go,csharp` selects an explicit subset when
+other owners' repositories must not be accessed. Excluded ports are listed in
+the report and are never counted as passes; `--all` retains the full matrix.
+
+`check-recompile.py` checks source/bytecode hashes before reproducing the corpus.
+A verified 72-signature v1 compiler reports literal-feature cases as SKIP while
+reproducing all compatible cases. A v2 or otherwise unknown compiler failure is
+an error; `LMCODE_REQUIRE_LITERAL_COMPILER=1` also makes v1 gaps fatal. Runtime
+execution always covers the entire corpus, regardless of compiler capabilities.
