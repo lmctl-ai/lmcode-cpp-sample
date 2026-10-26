@@ -1,0 +1,15 @@
+{
+  "repo": "lmctl-ai/lmcode-cpp",
+  "commit": "3ad43a83818d91280363d3318aae5ff005d9e507",
+  "sha256": {
+    "LICENSE": "949eb9b711d9b64ae472b87b94916e8427575a75d0d218f6c4cbccf8c48d46f3",
+    "include/dslvm.hpp": "8add47011616b699d8c47b372835c48c5281fa199caeff873f5dffc44a80241f",
+    "std/lmcode-std.schema.json": "cfe31e8b34fdcc33a13e456e80fa9d05a5e6c8fed5b98988abd24ac8570e65e0",
+    "stdlib/collections.hpp": "e3a9b6d440db82ecfae8092390f70167d884d586ef713e3c96158a0ebeab548f",
+    "stdlib/file.hpp": "806b6a9800957dacd6b411d3d97dd3da18e65a764b91c387a283e21010852ce8",
+    "stdlib/math.hpp": "59e58728afa33b4d185edb9d4e7cec385e0a4b570fadacfaad14161b4de5cb84",
+    "stdlib/std.hpp": "96efdf4e3d4eb77ea2478aea77133cac08aba3f10e461144797ae0d528bea2e6",
+    "stdlib/string.hpp": "a2849e7cb4fdeaa762af50402eef2cadc689a4094ba55c4ebe9e92092bfba0dc",
+    "stdlib/testing.hpp": "33863d03a8f8f16c128ca2611c429f57fce40b566e06533c5f0a8d54f72055da"
+  }
+}
