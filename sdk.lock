@@ -1,16 +1,17 @@
 {
   "repo": "lmctl-ai/lmcode-cpp",
-  "commit": "7cf59a9b983a0849365971a058522135a112da09",
+  "commit": "6620cc04bb23b61de5dae5033a08005a80823c3c",
   "sha256": {
     "LICENSE": "949eb9b711d9b64ae472b87b94916e8427575a75d0d218f6c4cbccf8c48d46f3",
     "include/dslvm.hpp": "7ebae6118b7570cdf2e362269478b11e2547780874b693023a9f21baa7b6e2c9",
-    "std/lmcode-std.schema.json": "296d7f66ff462fef3c3fa1f83c3e8889874d8714ceb303237ffac940a16aaaf8",
-    "stdlib/collections.hpp": "1358ad562af306a08b9795b8dd817b2e766b37d4e7cd99ad1ce379d83bc6e54f",
-    "stdlib/containers.hpp": "97cb40802393db53847b0f6e1222f81d94c3791608f864c93dbafd4892c1a5e2",
+    "std/lmcode-std.schema.json": "430588371274f09304d7c05c68819297c71d3ce4884f0e523d8ff19a33aff8af",
+    "stdlib/collections.hpp": "272d2932b9f205da15fc4663d1d92319ef9bbf8aac2f9186055d0c3146cd7bd4",
+    "stdlib/containers.hpp": "b83ba55e2f165e82c31cfde3e48eaf32207d54eae341d4cb2b1100f2b93e113a",
+    "stdlib/encoding.hpp": "b4612926ae2c9d5690f4cec219244ed6ae353b00368bfac6f8b056231bcb755a",
     "stdlib/file.hpp": "806b6a9800957dacd6b411d3d97dd3da18e65a764b91c387a283e21010852ce8",
     "stdlib/json.hpp": "7e3e419701ff464e09fb49b94e9f31a6050ac28a80afdd72805f528e32ac5139",
     "stdlib/math.hpp": "59e58728afa33b4d185edb9d4e7cec385e0a4b570fadacfaad14161b4de5cb84",
-    "stdlib/std.hpp": "7a96e8781ff7c6ee8524f2b9cb999185ce929989c68e37410e71470df4f4de32",
+    "stdlib/std.hpp": "b2b7ae63dd87b9bf8d99ec3ceae9909c71ff13ade70494dea9f407efabfc4a41",
     "stdlib/string.hpp": "a2849e7cb4fdeaa762af50402eef2cadc689a4094ba55c4ebe9e92092bfba0dc",
     "stdlib/testing.hpp": "33863d03a8f8f16c128ca2611c429f57fce40b566e06533c5f0a8d54f72055da"
   }

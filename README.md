@@ -32,7 +32,7 @@ npm install --global @lmctl-ai/lmctl@0.2.420
    Ledger recording and Money.set return their receiver; note(string) returns void.
 7. **Include standard/testing functions deliberately.** Default `Registry` supplies
    string/math/collections/file; optional testing supplies `print` and `assert_close`.
-   The [coverage audit](sample-suite/audit.py) checks all 171 std signatures in actual imports.
+   The [coverage audit](sample-suite/audit.py) checks all 181 std signatures in actual imports.
    File functions use the host filesystem; `SAMPLE_TMP` is a test convention, not a sandbox.
 8. **Compile, never interpret source in the host.** [program wrappers](sample-suite/programs)
    use `_lmcode_`/`savedsl`; `.dslb` is committed. Load with the **exact schema bytes**.
@@ -72,10 +72,10 @@ than platform-specific decimal traces. Negative runner controls ensure wrong exi
 changed JSON whitespace, stale fixtures, empty manifests and missing std calls fail.
 
 ```text
-PASS: all 171 standard signatures are imported by the corpus
+PASS: all 181 standard signatures are imported by the corpus
 PASS: all 45 host signatures are imported by the corpus
 PASS host CLI protocol (0/2/3/4; schema/signatures/discovery)
-PASS 77/77 sample cases
+PASS 87/87 sample cases
 PASS compiler reproduces all pinned bytecode
 ```
 
@@ -137,7 +137,9 @@ as the oracle with the canonical SDK's `sample-suite/run-all-samples.sh --all`.
 Unimplemented ports fail visibly; they are never silently skipped.
 
 The pinned corpus includes compiler literals from lmctl-mono `0ce49614`. All
-pinned bytecode runs on this std-v2 host. Source reproduction with a verified
+pinned bytecode runs on this std-v3 host. Source reproduction with a verified
 v1 compiler explicitly skips the five literal sources; use a literal-capable
 `LMSCRIPT_BIN` to reproduce all cases, or set `LMCODE_REQUIRE_LITERAL_COMPILER=1`
 to reject that temporary compatibility skip. SDK and suite locks remain exact.
+
+The v3 pin adds four strict byte codecs and six independent map snapshot methods. Programs 301–305 exercise them in the 87-case C++ corpus; other SDK v3 ports remain pending.
