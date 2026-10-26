@@ -32,7 +32,7 @@ npm install --global @lmctl-ai/lmctl@0.2.420
    Ledger recording and Money.set return their receiver; note(string) returns void.
 7. **Include standard/testing functions deliberately.** Default `Registry` supplies
    string/math/collections/file; optional testing supplies `print` and `assert_close`.
-   The [coverage audit](sample-suite/audit.py) checks all 72 std signatures in actual imports.
+   The [coverage audit](sample-suite/audit.py) checks all 171 std signatures in actual imports.
    File functions use the host filesystem; `SAMPLE_TMP` is a test convention, not a sandbox.
 8. **Compile, never interpret source in the host.** [program wrappers](sample-suite/programs)
    use `_lmcode_`/`savedsl`; `.dslb` is committed. Load with the **exact schema bytes**.
@@ -55,26 +55,27 @@ npm install --global @lmctl-ai/lmctl@0.2.420
 | While, range, inline fn, switches | 005–008, 036, 039, 043, 045 |
 | Host overloads, objects, operators, conversion, chaining, void methods | 009–014, 034–035, 040 |
 | Pure host function `fee(int)` | 002 |
-| Every std collection method | 015–018, 037–038 |
+| Every std collection method | 015–018, 037–038, 101–104 |
 | Every std math overload + all 18 intrinsic math operations | 019–020, 025, 048 |
 | Every std string function and conversion | 021–023 |
 | Every std file function | 024 |
 | Located VM/host errors, testing failure and application rule | 026–033 |
 | int64 wrap/overflow, actual short-circuiting, host foreach | 041–044 |
 | Raw/dedented inner heredocs and all four outer splice types | 046–047 |
-| Bad magic/schema binding rejection | 090–091 |
+| Bad magic/schema/import binding rejection | 090–092 |
+| JSON navigation/types and typed map/stack/queue/priority queues | 101–108 |
 
 The [full feature -> program matrix](sample-suite/README.md) links every source,
 bytecode and oracle. The C++ reference generated expectations, then an independent
-Go SDK host matched **66/66** byte-for-byte; approximate math uses assertions rather
+Go SDK host matched **77/77** byte-for-byte; approximate math uses assertions rather
 than platform-specific decimal traces. Negative runner controls ensure wrong exits,
 changed JSON whitespace, stale fixtures, empty manifests and missing std calls fail.
 
 ```text
-PASS: all 72 standard signatures are imported by the corpus
+PASS: all 171 standard signatures are imported by the corpus
 PASS: all 45 host signatures are imported by the corpus
 PASS host CLI protocol (0/2/3/4; schema/signatures/discovery)
-PASS 66/66 sample cases
+PASS 77/77 sample cases
 PASS compiler reproduces all pinned bytecode
 ```
 
@@ -105,7 +106,7 @@ and runs the same corpus against the installed bytes. Existing tags/assets are
 never overwritten. For the initial version:
 
 ```sh
-lmscript install github:lmctl-ai/lmcode-cpp-sample@v0.2.0
+lmscript install github:lmctl-ai/lmcode-cpp-sample@v0.3.0
 ```
 
 [installed-path.lms](scripts/installed-path.lms) shows the exact compiler discovery

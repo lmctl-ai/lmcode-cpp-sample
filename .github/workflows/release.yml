@@ -5,7 +5,7 @@ on:
       tag:
         description: Immutable sample version (must match --version)
         required: true
-        default: v0.2.0
+        default: v0.3.0
         type: string
 permissions:
   contents: read
@@ -121,7 +121,7 @@ jobs:
           python3 - <<'PY'
           import os,pathlib
           p=pathlib.Path('scripts/installed-path.lms')
-          p.write_text(p.read_text().replace('@v0.2.0','@'+os.environ['RELEASE_TAG']),newline='\n')
+          p.write_text(p.read_text().replace('@v0.3.0','@'+os.environ['RELEASE_TAG']),newline='\n')
           PY
           lmscript scripts/installed-path.lms > installed-path.txt
           installed="$(cat installed-path.txt | tr -d '\r')"
