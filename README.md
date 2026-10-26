@@ -33,6 +33,7 @@ npm install --global @lmctl-ai/lmctl@0.2.420
 7. **Include standard/testing functions deliberately.** Default `Registry` supplies
    string/math/collections/file; optional testing supplies `print` and `assert_close`.
    The [coverage audit](sample-suite/audit.py) checks all 72 std signatures in actual imports.
+   File functions use the host filesystem; `SAMPLE_TMP` is a test convention, not a sandbox.
 8. **Compile, never interpret source in the host.** [program wrappers](sample-suite/programs)
    use `_lmcode_`/`savedsl`; `.dslb` is committed. Load with the **exact schema bytes**.
    [embed-schema.py](scripts/embed-schema.py) preserves them in a generated header.
@@ -53,6 +54,7 @@ npm install --global @lmctl-ai/lmctl@0.2.420
 | Primitive literals/arithmetic/comparison/logic/if | 001–004 |
 | While, range, inline fn, switches | 005–008, 036, 039, 043, 045 |
 | Host overloads, objects, operators, conversion, chaining, void methods | 009–014, 034–035, 040 |
+| Pure host function `fee(int)` | 002 |
 | Every std collection method | 015–018, 037–038 |
 | Every std math overload + all 18 intrinsic math operations | 019–020, 025, 048 |
 | Every std string function and conversion | 021–023 |
@@ -69,8 +71,9 @@ than platform-specific decimal traces. Negative runner controls ensure wrong exi
 changed JSON whitespace, stale fixtures, empty manifests and missing std calls fail.
 
 ```text
-PASS host CLI protocol (0/2/3/4; schema/signatures/discovery)
 PASS: all 72 standard signatures are imported by the corpus
+PASS: all 27 host signatures are imported by the corpus
+PASS host CLI protocol (0/2/3/4; schema/signatures/discovery)
 PASS 50/50 sample cases
 PASS compiler reproduces all pinned bytecode
 ```
