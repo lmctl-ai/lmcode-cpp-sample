@@ -151,5 +151,7 @@ checks the adjusted prices. The shared compile-error corpus rejects a mismatched
 rule signature. These are compiler-only features: this host still executes DSLB
 v5; the exact schema hash changes, so the suite includes recompiled bytecode.
 Run `LMSCRIPT_BIN=/path/to/rule-method-capable/lmscript ./test.sh` to reproduce
-the sources. The manual test workflow requires a matching published compiler version input;
-older releases cannot reproduce the interface-bearing corpus.
+the sources. The first published capable compiler is `@lmctl-ai/lmctl@0.2.442`
+(currently on the `staging` dist-tag). The manual test workflow requires a
+matching published compiler version input; older releases cannot reproduce the
+interface-bearing corpus.
