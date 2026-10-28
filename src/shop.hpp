@@ -28,6 +28,14 @@ public:
         context.set("ledger", &ledger);
         return context;
     }
+    // Rule-entry dispatch handles (CONTRACT.md): the shop's items in order, and
+    // the same total the Shop.total() callback computes.
+    const std::vector<Money*>& item_handles() const { return shop.items.values; }
+    dslvm::Value total_handle() {
+        int64_t total = 0;
+        for (auto* item : shop.items.values) total = add(total, item->cents);
+        return money(total);
+    }
 
 private:
     std::vector<std::unique_ptr<Money>> arena;

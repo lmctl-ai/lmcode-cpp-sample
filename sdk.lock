@@ -1,9 +1,9 @@
 {
   "repo": "lmctl-ai/lmcode-cpp",
-  "commit": "598435e43d386552c701fdb70dd00ba298ffc9a7",
+  "commit": "81aec8b32c31d94a14ef3f7ad83485a89a5ea1ad",
   "sha256": {
     "LICENSE": "949eb9b711d9b64ae472b87b94916e8427575a75d0d218f6c4cbccf8c48d46f3",
-    "include/dslvm.hpp": "7ebae6118b7570cdf2e362269478b11e2547780874b693023a9f21baa7b6e2c9",
+    "include/dslvm.hpp": "96187fe2016d385130f4e4df12558e4860da90a08f3b97a2da50c187d0d91ae7",
     "std/lmcode-std.schema.json": "430588371274f09304d7c05c68819297c71d3ce4884f0e523d8ff19a33aff8af",
     "stdlib/collections.hpp": "272d2932b9f205da15fc4663d1d92319ef9bbf8aac2f9186055d0c3146cd7bd4",
     "stdlib/containers.hpp": "b83ba55e2f165e82c31cfde3e48eaf32207d54eae341d4cb2b1100f2b93e113a",

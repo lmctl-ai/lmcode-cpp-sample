@@ -53,6 +53,7 @@ LMSCRIPT_BIN=/path/to/rule-method-capable/lmscript ./test.sh
 | Primitive literals/arithmetic/comparison/logic/if | 001–004 |
 | While, range, inline fn, switches | 005–008, 036, 039, 043, 045 |
 | Annotated rule method implementing a schema SAM interface | 067 |
+| Rule entries called by the host after the body (`@item`/`@total`, `entries_called`) | 068–069 |
 | Host overloads, objects, operators, conversion, chaining, void methods | 009–014, 034–035, 040 |
 | Pure host function `fee(int)` | 002 |
 | Every std collection method | 015–018, 037–038, 101–104 |
@@ -143,15 +144,18 @@ remain exact.
 
 The v3 pin adds four strict byte codecs and six independent map snapshot methods. Programs 301–305 and 311–313 exercise them in the 91-case C++ corpus; other SDK v3 ports remain pending.
 
-## Rule methods (R47/R48)
+## Rule methods (R47/R48) and rule entries (R49, DSLB v6)
 
-The suite is pinned to `lmcode-cpp` commit `aec9b09`. Program 067 calls an
-`@PRICE_RULE` function implementing `interfaces.Adjuster` from the chunk and
-checks the adjusted prices. The shared compile-error corpus rejects a mismatched
-rule signature. These are compiler-only features: this host still executes DSLB
-v5; the exact schema hash changes, so the suite includes recompiled bytecode.
-Run `LMSCRIPT_BIN=/path/to/rule-method-capable/lmscript ./test.sh` to reproduce
-the sources. The first published capable compiler is `@lmctl-ai/lmctl@0.2.442`
-(currently on the `staging` dist-tag). The manual test workflow requires a
-matching published compiler version input; older releases cannot reproduce the
-interface-bearing corpus.
+Program 067 calls an `@PRICE_RULE` function implementing `interfaces.Adjuster`
+from the chunk and checks the adjusted prices. With DSLB v6 every annotated rule
+also compiles to a rule entry: after the body runs, [main.cpp](src/main.cpp)
+calls each `@item` entry once per shop item in order and each `@total` entry
+once with the shop total (068), prints a non-void entry result as
+`entry NAME = VALUE` (069, `interfaces.Score`), never calls other annotations,
+and reports the number of calls as `"entries_called"` in the result object.
+Annotation without `implements` is a compiler rejection; a v5 file is a load
+error (093). The first published rule-methods-capable compiler is
+`@lmctl-ai/lmctl@0.2.442` (currently on the `staging` dist-tag); the v6 corpus
+needs the v6-entries compiler
+(`LMSCRIPT_BIN=/path/to/v6-entries/lmscript ./test.sh`). Older releases cannot
+reproduce the interface-bearing corpus.
