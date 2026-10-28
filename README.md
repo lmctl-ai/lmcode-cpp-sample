@@ -3,12 +3,11 @@
 **Agent entry point:** this is a complete C++17 host, not another interpreter.
 Read these three files first: [domain types](src/shop.hpp), [bindings](src/shop.cpp),
 and [CLI](src/main.cpp). The SDK is header-only; the host needs only the C++
-standard library, Make, Python 3 and `lmscript >= 0.2.420` (Node >=24.15).
+standard library, Make, Python 3 and an R47/R48-capable `lmscript` (Node >=24.15).
 No images or external application framework are needed.
 
 ```sh
-npm install --global @lmctl-ai/lmctl@0.2.420
-./test.sh
+LMSCRIPT_BIN=/path/to/rule-method-capable/lmscript ./test.sh
 ```
 
 ## Write a host in ten steps
@@ -76,7 +75,7 @@ changed JSON whitespace, stale fixtures, empty manifests and missing std calls f
 PASS: all 181 standard signatures are imported by the corpus
 PASS: all 45 host signatures are imported by the corpus
 PASS host CLI protocol (0/2/3/4; schema/signatures/discovery)
-PASS 90/90 sample cases
+PASS 91/91 sample cases
 PASS compiler reproduces all pinned bytecode
 ```
 
@@ -137,13 +136,12 @@ Build all eight ports and compare their **actual** outputs to one another as wel
 as the oracle with the canonical SDK's `sample-suite/run-all-samples.sh --all`.
 Unimplemented ports fail visibly; they are never silently skipped.
 
-The pinned corpus includes compiler literals from lmctl-mono `0ce49614`. All
-pinned bytecode runs on this std-v3 host. Source reproduction with a verified
-v1 compiler explicitly skips the five literal sources; use a literal-capable
-`LMSCRIPT_BIN` to reproduce all cases, or set `LMCODE_REQUIRE_LITERAL_COMPILER=1`
-to reject that temporary compatibility skip. SDK and suite locks remain exact.
+The pinned corpus includes lmcode literals and R47/R48 rule methods. Use a
+matching `LMSCRIPT_BIN` to reproduce all 91 cases. The old v1 literal-only skip
+cannot make a compiler accept the interface-bearing schema. SDK and suite locks
+remain exact.
 
-The v3 pin adds four strict byte codecs and six independent map snapshot methods. Programs 301–305 and 311–313 exercise them in the 90-case C++ corpus; other SDK v3 ports remain pending.
+The v3 pin adds four strict byte codecs and six independent map snapshot methods. Programs 301–305 and 311–313 exercise them in the 91-case C++ corpus; other SDK v3 ports remain pending.
 
 ## Rule methods (R47/R48)
 
@@ -153,5 +151,5 @@ checks the adjusted prices. The shared compile-error corpus rejects a mismatched
 rule signature. These are compiler-only features: this host still executes DSLB
 v5; the exact schema hash changes, so the suite includes recompiled bytecode.
 Run `LMSCRIPT_BIN=/path/to/rule-method-capable/lmscript ./test.sh` to reproduce
-the sources. The older published compiler pin in CI is not evidence of R47/R48
-support; use a matching compiler through the workflow input when published.
+the sources. The manual test workflow requires a matching published compiler version input;
+older releases cannot reproduce the interface-bearing corpus.
