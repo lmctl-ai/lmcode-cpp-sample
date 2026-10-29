@@ -15,7 +15,7 @@ $(BUILD)/sample_schema.hpp: $(SUITE)/sample.dsl.json scripts/embed-schema.py
 $(BUILD)/lmcode-cpp-sample: src/main.cpp src/shop.cpp src/conversions.cpp src/shop.hpp $(HEADERS) $(BUILD)/sample_schema.hpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) src/main.cpp src/shop.cpp src/conversions.cpp -o "$@"
 test: all
-	python3 -B "$(SUITE)/audit.py" --std "$(SDK)/std/lmcode-std.schema.json"
+	LMCODE_SUITE="$(abspath $(SUITE))" lmscript --no-preflight "$(SUITE)/audit.lms" --std "$(SDK)/std/lmcode-std.schema.json"
 	bash "$(SUITE)/run-suite.sh" "$(abspath $(BUILD)/lmcode-cpp-sample)"
 clean:
 	rm -rf $(BUILD)
