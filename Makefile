@@ -1,3 +1,4 @@
+VERSION ?= 0.4.0
 CXX ?= c++
 CXXFLAGS ?= -std=c++17 -O2 -Wall -Wextra -Werror -pedantic
 BUILD ?= build
@@ -5,6 +6,7 @@ SDK ?= vendor/lmcode
 SUITE ?= sample-suite
 INCLUDES = -Isrc -I"$(BUILD)" -I"$(SDK)/include" -I"$(SDK)/stdlib"
 HEADERS = $(wildcard $(SDK)/include/*.hpp $(SDK)/stdlib/*.hpp)
+INCLUDES += '-DSAMPLE_VERSION="$(VERSION)"'
 .PHONY: all test clean
 all: $(BUILD)/lmcode-cpp-sample
 $(BUILD)/sample_schema.hpp: $(SUITE)/sample.dsl.json scripts/embed-schema.py

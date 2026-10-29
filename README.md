@@ -98,22 +98,6 @@ macOS and Windows builds; workflow_dispatch selects a newer published compiler.
 The pinned-bytecode reproducibility check intentionally reports compiler drift
 for review. Standard library and schema bytes are vendored with MIT licensing.
 
-## Native installation check
-
-The manual **Release and lmscript install** workflow first tests every native
-build, publishes a pinned **prerelease** (never moves `latest`), then uses a fresh
-cache and `lmscript install` on Linux x64/arm64, macOS x64/arm64 and Windows x64
-and runs the same corpus against the installed bytes. Existing tags/assets are
-never overwritten. For the initial version:
-
-```sh
-lmscript install github:lmctl-ai/lmcode-cpp-sample@v0.3.0
-```
-
-[installed-path.lms](scripts/installed-path.lms) shows the exact compiler discovery
-contract (`cli` + pinned `install`); its final line reports the installed native
-path. Release binaries include SHA256SUMS, MIT licensing and runtime notices.
-
 ## Conversions
 
 | lmcode value | C++ representation | Boundary rule |
@@ -159,3 +143,39 @@ error (093). The first published rule-methods-capable compiler is
 needs the v6-entries compiler
 (`LMSCRIPT_BIN=/path/to/v6-entries/lmscript ./test.sh`). Older releases cannot
 reproduce the interface-bearing corpus.
+
+## Runnable annotated interface example
+
+[examples/rule-entries.lms](examples/rule-entries.lms) defines two `@item`
+functions and one `@total` function, each with `implements Adjuster`. The
+schema declares `Adjuster(Money) -> void`; the compiler checks the signature.
+The body prints first, then the host calls entries by annotation. `@never`
+demonstrates an entry that this host does not dispatch.
+
+```sh
+make
+lmscript examples/rule-entries.lms build/rule-entries.dslb
+build/lmcode-cpp-sample --dsl build/rule-entries.dslb
+```
+
+Use lmscript 0.2.444 (DSLB v6). The expected trace is pinned in
+[sample-suite/expected/068-rule-entries.out](sample-suite/expected/068-rule-entries.out).
+For a non-void interface and returned entry value, see
+[069-rule-value-entry.lms](sample-suite/programs/069-rule-value-entry.lms).
+
+## Automatic releases
+
+Every push to `main` builds and tests Linux x64/arm64, macOS x64/arm64,
+and Windows x64. All five jobs must pass the full suite, bytecode
+reproduction and the public annotated interface example before publication.
+Pull requests run the same checks without publishing.
+
+The release workflow pins lmscript 0.2.444 and publishes an immutable
+`v0.4.<workflow run number>` release, marking it latest. Executables report
+that same version; assets use the lmscript platform naming convention and
+include `SHA256SUMS`, license and notices. Failed tests prevent publication.
+A workflow rerun keeps an already published release unchanged.
+
+```sh
+lmscript install github:lmctl-ai/lmcode-cpp-sample@latest
+```
