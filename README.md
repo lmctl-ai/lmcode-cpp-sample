@@ -31,7 +31,7 @@ LMSCRIPT_BIN=/path/to/rule-method-capable/lmscript ./test.sh
    Ledger recording and Money.set return their receiver; note(string) returns void.
 7. **Include standard/testing functions deliberately.** Default `Registry` supplies
    string/math/collections/file; optional testing supplies `print` and `assert_close`.
-   The [coverage audit](sample-suite/audit.py) checks all 181 std signatures in actual imports.
+   The [coverage audit](sample-suite/audit.py) checks all 182 std signatures in actual imports.
    File functions use the host filesystem; `SAMPLE_TMP` is a test convention, not a sandbox.
 8. **Compile, never interpret source in the host.** [program wrappers](sample-suite/programs)
    use `_lmcode_`/`savedsl`; `.dslb` is committed. Load with the **exact schema bytes**.
@@ -73,7 +73,7 @@ than platform-specific decimal traces. Negative runner controls ensure wrong exi
 changed JSON whitespace, stale fixtures, empty manifests and missing std calls fail.
 
 ```text
-PASS: all 181 standard signatures are imported by the corpus
+PASS: all 182 standard signatures are imported by the corpus
 PASS: all 45 host signatures are imported by the corpus
 PASS host CLI protocol (0/2/3/4; schema/signatures/discovery)
 PASS 91/91 sample cases
@@ -199,3 +199,9 @@ negative controls are orchestrated by `.lms` files in `sample-suite/`. A small
 Node adapter preserves binary hashes and byte-exact subprocess output; it
 contains no test assertions. Python remains for SDK lock synchronization and
 build-time schema embedding, not test orchestration.
+
+## Text templates
+
+[examples/text-template.lms](examples/text-template.lms) renders ordinary text from a nested context with indexed lists, loops and boolean conditions. The standard `template_render(string, Json) -> string` function performs one pass; inserted values stay literal. Compile it with `lmscript --no-preflight examples/text-template.lms build/text-template.dslb`, then run the sample host with `--dsl build/text-template.dslb`.
+
+The lmscript-driven suite runs 108 cases, including template success/error cases. See the [portable template contract](https://github.com/lmctl-ai/lmcode-cpp/blob/main/std/template.md).
