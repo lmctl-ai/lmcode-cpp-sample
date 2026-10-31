@@ -221,3 +221,10 @@ and `--last` role fragments can reorder dispatch. A tagged `host_summary` retain
 the shop result; one terminal success/failure envelope follows. Public examples
 construct programs and call `run_lmcode` with the executable as ARGV[0].
 See sample-suite/CONTRACT.md and sample-suite/check-invocations.py.
+
+Version-1 invocation metadata requires a boolean `dry`. The CLI validates it
+before constructing `Host`, then copies the collector mode into `Context`.
+Without metadata the sample runs in real mode. `sample_tmp` opts into its safe
+environment read during dry execution; standard file writes retain the SDK's
+skip-and-dummy policy. `make test-dry-adoption` checks the file sentinel, exactly
+one `sample_tmp` preview, the dry failure marker, and unchanged real file behavior.

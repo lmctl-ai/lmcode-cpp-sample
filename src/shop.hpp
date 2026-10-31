@@ -20,6 +20,9 @@ public:
     dslvm::Registry registry; // Installs string/math/collections/file std by default.
     Shop shop;
     Ledger ledger;
+#ifdef H6_TEST_COUNTERS
+    size_t sample_tmp_calls = 0;
+#endif
 
     Host();
     dslvm::Context context() {

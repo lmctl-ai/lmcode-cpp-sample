@@ -23,11 +23,15 @@ Host::Host() {
     registry.function("fee", {"int"}, "int", [](Args& a) {
         return Value::integer(add(a[0].i, 5));
     });
-    registry.function("sample_tmp", {}, "string", [](Args&) {
+    auto sample_tmp = [this](Args&) {
+#ifdef H6_TEST_COUNTERS
+        ++sample_tmp_calls;
+#endif
         const char* path = std::getenv("SAMPLE_TMP");
         if (!path || !*path) throw dslvm::Error("SAMPLE_TMP is required");
         return Value::string(path);
-    });
+    };
+    registry.function("sample_tmp", {}, "string", sample_tmp, dslvm::dry(sample_tmp));
 
     // Values are tagged. The loader binds these declared signatures before run().
     registry.method("Money", "amount", {}, "int", [](void* self, Args&) {
