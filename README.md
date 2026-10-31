@@ -128,7 +128,7 @@ remain exact.
 
 The v3 pin adds four strict byte codecs and six independent map snapshot methods. Programs 301–305 and 311–313 exercise them in the 91-case C++ corpus; other SDK v3 ports remain pending.
 
-## Rule methods (R47/R48) and rule entries (R49, DSLB v6)
+## Rule methods (R47/R48) and rule entries (R49, lmcode bytecode (DSLB v6))
 
 Program 067 calls an `@PRICE_RULE` function implementing `interfaces.Adjuster`
 from the chunk and checks the adjusted prices. With DSLB v6 every annotated rule
@@ -213,3 +213,7 @@ The shop diagnostic and int entry traces retain their previous order. Successful
 `LMCODE_RETURN_END` frame with LF bytes. An unset `$return` emits null. Body and
 entry writes share one owned sink through all item/total calls; failed VM or
 application validation emits no frame. See [ownership and local controls](durable-memory/invocation-return.md).
+
+## Historical literal names
+
+The documentation calls the language lmcode. `--dsl`, `--dsl-schema` and `--dsl-signatures` are current host flag literals; `DSLB` is the bytecode magic and `DSLB v6` is the current format name; `.dslb` is the current bytecode filename extension. Other code-formatted API names, paths, manifest names and diagnostic text retain their current literal spellings.
