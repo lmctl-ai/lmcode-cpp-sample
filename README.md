@@ -76,8 +76,8 @@ changed JSON whitespace, stale fixtures, empty manifests and missing std calls f
 PASS: all 182 standard signatures are imported by the corpus
 PASS: all 45 host signatures are imported by the corpus
 PASS host CLI protocol (0/2/3/4; schema/signatures/discovery)
-PASS 91/91 sample cases
-PASS compiler reproduces all pinned bytecode
+PASS 123/123 sample cases
+PASS compiler type-checks 119 sources; 4 bytecode mutation controls
 ```
 
 ## Updating the reference
@@ -92,11 +92,9 @@ not in this vendored copy. With reviewed commits in a sibling checkout:
 ```
 
 A new standard function must get a case/import; the audit rejects uncovered
-signatures. Compiler/language changes must recompile/review the corpus and run
-all sample ports, not silently rewrite expected files in CI. CI tests native Linux,
+signatures. Compiler/language changes must type-check source and run all sample ports; public compiler CI keeps the pinned bytecode fixtures and expected outputs unchanged. CI tests native Linux,
 macOS and Windows builds; workflow_dispatch selects a newer published compiler.
-The pinned-bytecode reproducibility check intentionally reports compiler drift
-for review. Standard library and schema bytes are vendored with MIT licensing.
+The public npm compiler keeps program handles opaque and does not export bytecode; CI type-checks source while pinned fixtures and runtime results remain authoritative. Standard library and schema bytes are vendored with MIT licensing.
 
 ## Conversions
 
