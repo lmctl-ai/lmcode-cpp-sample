@@ -19,3 +19,7 @@ test: all
 	bash "$(SUITE)/run-suite.sh" "$(abspath $(BUILD)/lmcode-cpp-sample)"
 clean:
 	rm -rf $(BUILD)
+
+ifeq ($(OS),Windows_NT)
+CXXFLAGS += -municode
+endif

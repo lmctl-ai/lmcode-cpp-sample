@@ -34,7 +34,7 @@ LMSCRIPT_BIN=/path/to/rule-method-capable/lmscript ./test.sh
    The [coverage audit](sample-suite/audit.py) checks all 182 std signatures in actual imports.
    File functions use the host filesystem; `SAMPLE_TMP` is a test convention, not a sandbox.
 8. **Compile, never interpret source in the host.** [program wrappers](sample-suite/programs)
-   use `_lmcode_ ... out=ARGV[0]`; `.dslb` is committed. Load with the **exact schema bytes**.
+   use the fixture-only compiler-library tool; `.dslb` is committed. Load with the **exact schema bytes**.
    [embed-schema.py](scripts/embed-schema.py) preserves them in a generated header.
 9. **Handle errors at the right boundary.** [main.cpp](src/main.cpp) reports one
    JSON result after print traces: success 0, CLI/compile error 2, load/run error 3,
@@ -212,8 +212,15 @@ The shop diagnostic and int entry traces retain their previous order. Successful
 `--lmcode` execution then appends exactly one SDK `LMCODE_RETURN_BEGIN` / compact JSON /
 `LMCODE_RETURN_END` frame with LF bytes. An unset `$return` emits null. Body and
 entry writes share one owned sink through all item/total calls; failed VM or
-application validation emits no frame. See [ownership and local controls](durable-memory/invocation-return.md).
+application validation emits a failure envelope with no payload. See [ownership and local controls](durable-memory/invocation-return.md).
 
 ## Historical literal names
 
 The documentation calls the language lmcode. `--lmcode`, `--lmcode-schema` and `--lmcode-signatures` are current host flag literals; `DSLB` is the bytecode magic and `DSLB v6` is the current format name; `.dslb` is the current bytecode filename extension. Other code-formatted API names, paths, manifest names and diagnostic text retain their current literal spellings.
+
+The amendment invocation protocol is adopted: repeated `--lmcode FILE` pairs share
+one shop/ledger, with independent sealed results emitted in add order. `--first`
+and `--last` role fragments can reorder dispatch. A tagged `host_summary` retains
+the shop result; one terminal success/failure envelope follows. Public examples
+construct programs and call `run_lmcode` with the executable as ARGV[0].
+See sample-suite/CONTRACT.md and sample-suite/check-invocations.py.
