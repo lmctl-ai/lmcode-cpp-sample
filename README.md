@@ -16,7 +16,7 @@ LMSCRIPT_BIN=/path/to/rule-method-capable/lmscript ./test.sh
    entries; `Money` is signed int64 cents. Read [the portable contract](sample-suite/CONTRACT.md).
 2. **Declare the API.** [host.schema.json](sample-suite/host.schema.json) shows
    contexts, four object types, `Currency`, exact overloads and void methods.
-   [sample.dsl.json](sample-suite/sample.dsl.json) merges that domain with std.
+   [`sample.dsl.json`](sample-suite/sample.dsl.json) merges that domain with std.
 3. **Pin dependencies.** [sdk.lock](sdk.lock) and [suite.lock](suite.lock) hash
    every vendored byte; `scripts/sync.py check` rejects drift. No sibling repo
    or network is required to build this checked-out sample.
