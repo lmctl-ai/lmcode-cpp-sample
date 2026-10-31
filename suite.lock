@@ -1,6 +1,6 @@
 {
   "repo": "lmctl-ai/lmcode-cpp",
-  "commit": "6ee3d62ea9b480aa6f42a592055233959f7f6162",
+  "commit": "a34f14aed33402eeb90665b6987c4ed306c97e19",
   "sha256": {
     "CONTRACT.md": "dc60e46278f112917df5a2a5b1b54de04ae8bffa30094c256f0bb0ecb90a36b9",
     "README.md": "41308a9ae3bd7a97fd8839ae15d7e6e58ce1baa7bbfbf7de211194472224483b",
@@ -545,6 +545,5 @@
     "test_compiler_features.py": "9772e4bd7cef4f72643d6e3b18528566d4213f4b74ad7d3159334b4772b330f1",
     "test_return_protocol.py": "75e5bc0cb85522c7efadf2f61988d807cfe26a42cb3aad9495c69130f6ad494e",
     "test_runner.py": "43178edfaf7d095e6ee57c9c23c7215934acdfe61bd60a83e7bb2648069196f3"
-  },
-  "documentation_overlay": "lmcode terminology only; no fixture or SDK code bytes changed"
+  }
 }
