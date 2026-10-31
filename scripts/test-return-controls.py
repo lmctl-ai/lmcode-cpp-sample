@@ -27,7 +27,7 @@ def load_cases():
 
 def run_case(binary, case):
     result = subprocess.run(
-        [str(binary), "--dsl", str(ROOT / "sample-suite" / case["bytecode"])],
+        [str(binary), "--lmcode", str(ROOT / "sample-suite" / case["bytecode"])],
         capture_output=True,
     )
     if result.returncode != case["expected_exit"]:

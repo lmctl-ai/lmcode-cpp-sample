@@ -155,7 +155,7 @@ demonstrates an entry that this host does not dispatch.
 ```sh
 make
 lmscript examples/rule-entries.lms build/rule-entries.dslb
-build/lmcode-cpp-sample --dsl build/rule-entries.dslb
+build/lmcode-cpp-sample --lmcode build/rule-entries.dslb
 ```
 
 Use a private mono main compiler build at 0bc80277 or newer (DSLB v6), selected with `LMSCRIPT_BIN`. The expected trace is pinned in
@@ -202,18 +202,18 @@ build-time schema embedding, not test orchestration.
 
 ## Text templates
 
-[examples/text-template.lms](examples/text-template.lms) renders ordinary text from a nested context with indexed lists, loops and boolean conditions. The standard `template_render(string, Json) -> string` function performs one pass; inserted values stay literal. Compile it with `lmscript --no-preflight examples/text-template.lms build/text-template.dslb`, then run the sample host with `--dsl build/text-template.dslb`.
+[examples/text-template.lms](examples/text-template.lms) renders ordinary text from a nested context with indexed lists, loops and boolean conditions. The standard `template_render(string, Json) -> string` function performs one pass; inserted values stay literal. Compile it with `lmscript --no-preflight examples/text-template.lms build/text-template.dslb`, then run the sample host with `--lmcode build/text-template.dslb`.
 
 The lmscript-driven suite runs 108 cases, including template success/error cases. See the [portable template contract](https://github.com/lmctl-ai/lmcode-cpp/blob/main/std/template.md).
 
 ### Invocation return frame
 
 The shop diagnostic and int entry traces retain their previous order. Successful
-`--dsl` execution then appends exactly one SDK `LMCODE_RETURN_BEGIN` / compact JSON /
+`--lmcode` execution then appends exactly one SDK `LMCODE_RETURN_BEGIN` / compact JSON /
 `LMCODE_RETURN_END` frame with LF bytes. An unset `$return` emits null. Body and
 entry writes share one owned sink through all item/total calls; failed VM or
 application validation emits no frame. See [ownership and local controls](durable-memory/invocation-return.md).
 
 ## Historical literal names
 
-The documentation calls the language lmcode. `--dsl`, `--dsl-schema` and `--dsl-signatures` are current host flag literals; `DSLB` is the bytecode magic and `DSLB v6` is the current format name; `.dslb` is the current bytecode filename extension. Other code-formatted API names, paths, manifest names and diagnostic text retain their current literal spellings.
+The documentation calls the language lmcode. `--lmcode`, `--lmcode-schema` and `--lmcode-signatures` are current host flag literals; `DSLB` is the bytecode magic and `DSLB v6` is the current format name; `.dslb` is the current bytecode filename extension. Other code-formatted API names, paths, manifest names and diagnostic text retain their current literal spellings.

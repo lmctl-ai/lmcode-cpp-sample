@@ -28,7 +28,7 @@ std::string value_text(const dslvm::Value& v) {  // same text as the language's 
 }
 int usage() {
     std::cout << "{\"ok\": false, \"phase\": \"cli\", \"code\": \"CLI_USAGE\", \"message\": "
-              << dslvm::json_escape("usage: --version | --dsl-schema [--json] | --dsl-signatures | --dsl FILE") << "}\n";
+              << dslvm::json_escape("usage: --version | --lmcode-schema [--json] | --lmcode-signatures | --lmcode FILE") << "}\n";
     return 2;
 }
 }
@@ -45,15 +45,15 @@ int main(int argc, char** argv) {
             return 0;
         }
         if ((argc == 2 || (argc == 3 && std::string(argv[2]) == "--json")) &&
-            std::string(argv[1]) == "--dsl-schema") {
+            std::string(argv[1]) == "--lmcode-schema") {
             std::cout.write(sample::schema, sizeof(sample::schema) - 1);
             return 0;
         }
-        if (argc == 2 && std::string(argv[1]) == "--dsl-signatures") {
+        if (argc == 2 && std::string(argv[1]) == "--lmcode-signatures") {
             for (const auto& signature : host.registry.signatures()) std::cout << signature << '\n';
             return 0;
         }
-        if (argc != 3 || std::string(argv[1]) != "--dsl") return usage();
+        if (argc != 3 || std::string(argv[1]) != "--lmcode") return usage();
 
         dslvm::Program program;
         try {
