@@ -154,8 +154,7 @@ demonstrates an entry that this host does not dispatch.
 
 ```sh
 make
-lmscript examples/rule-entries.lms build/rule-entries.dslb
-build/lmcode-cpp-sample --lmcode build/rule-entries.dslb
+lmscript examples/rule-entries.lms "$PWD/build/lmcode-cpp-sample"
 ```
 
 Use a private mono main compiler build at 0bc80277 or newer (DSLB v6), selected with `LMSCRIPT_BIN`. The expected trace is pinned in
@@ -197,14 +196,14 @@ CI uses `lmscript --no-preflight test.lms` to execute the tests once.
 The suite, protocol checks, signature coverage, compiler reproduction and
 negative controls are orchestrated by `.lms` files in `sample-suite/`. A small
 Node adapter preserves binary hashes and byte-exact subprocess output; it
-contains no test assertions. Python remains for SDK lock synchronization and
-build-time schema embedding, not test orchestration.
+contains no test assertions. Python supplies SDK lock synchronization, schema embedding and the native
+invocation integration/mutation oracles.
 
 ## Text templates
 
-[examples/text-template.lms](examples/text-template.lms) renders ordinary text from a nested context with indexed lists, loops and boolean conditions. The standard `template_render(string, Json) -> string` function performs one pass; inserted values stay literal. Compile it with `lmscript --no-preflight examples/text-template.lms build/text-template.dslb`, then run the sample host with `--lmcode build/text-template.dslb`.
+[examples/text-template.lms](examples/text-template.lms) renders ordinary text from a nested context with indexed lists, loops and boolean conditions. The standard `template_render(string, Json) -> string` function performs one pass; inserted values stay literal. Run it with `lmscript --no-preflight examples/text-template.lms "$PWD/build/lmcode-cpp-sample"`; the script constructs and executes its program.
 
-The lmscript-driven suite runs 108 cases, including template success/error cases. See the [portable template contract](https://github.com/lmctl-ai/lmcode-cpp/blob/main/std/template.md).
+The lmscript-driven suite runs 123 cases, including template success/error cases. See the [portable template contract](https://github.com/lmctl-ai/lmcode-cpp/blob/main/std/template.md).
 
 ### Invocation return frame
 
