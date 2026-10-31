@@ -65,6 +65,8 @@ int main(int argc, char** argv) {
             return dslvm::report_error("load", dslvm::Error(error.code, message));
         }
         auto context = host.context();
+        dslvm::ResultSink invocation_result;
+        host.registry.set_result_sink(&invocation_result); // body + all selected entries
         try {
             program.run(context, host.registry);
         } catch (const dslvm::Error& error) {
@@ -95,10 +97,13 @@ int main(int argc, char** argv) {
         }
         // Application validation is distinct from a compiler/loader/VM failure.
         if (host.ledger.balance < 0) return dslvm::report_app_failure("ledger: negative balance");
-        return dslvm::report_ok("{\"balance\": " + std::to_string(host.ledger.balance) +
+        const int status = dslvm::report_ok("{\"balance\": " + std::to_string(host.ledger.balance) +
                                ", \"entries\": " + std::to_string(host.ledger.entries) +
                                ", \"note\": " + dslvm::json_escape(host.ledger.note) +
                                ", \"entries_called\": " + std::to_string(entries_called) + "}");
+        if (status) return status;
+        dslvm::write_result_frame(std::cout, invocation_result);
+        return 0;
     } catch (const std::exception&) {
         return dslvm::report_app_failure("cannot read sample input");
     }

@@ -34,7 +34,7 @@ LMSCRIPT_BIN=/path/to/rule-method-capable/lmscript ./test.sh
    The [coverage audit](sample-suite/audit.py) checks all 182 std signatures in actual imports.
    File functions use the host filesystem; `SAMPLE_TMP` is a test convention, not a sandbox.
 8. **Compile, never interpret source in the host.** [program wrappers](sample-suite/programs)
-   use `_lmcode_`/`savedsl`; `.dslb` is committed. Load with the **exact schema bytes**.
+   use `_lmcode_ ... out=ARGV[0]`; `.dslb` is committed. Load with the **exact schema bytes**.
    [embed-schema.py](scripts/embed-schema.py) preserves them in a generated header.
 9. **Handle errors at the right boundary.** [main.cpp](src/main.cpp) reports one
    JSON result after print traces: success 0, CLI/compile error 2, load/run error 3,
@@ -158,7 +158,7 @@ lmscript examples/rule-entries.lms build/rule-entries.dslb
 build/lmcode-cpp-sample --dsl build/rule-entries.dslb
 ```
 
-Use lmscript 0.2.444 (DSLB v6). The expected trace is pinned in
+Use a private mono main compiler build at 0bc80277 or newer (DSLB v6), selected with `LMSCRIPT_BIN`. The expected trace is pinned in
 [sample-suite/expected/068-rule-entries.out](sample-suite/expected/068-rule-entries.out).
 For a non-void interface and returned entry value, see
 [069-rule-value-entry.lms](sample-suite/programs/069-rule-value-entry.lms).
@@ -205,3 +205,11 @@ build-time schema embedding, not test orchestration.
 [examples/text-template.lms](examples/text-template.lms) renders ordinary text from a nested context with indexed lists, loops and boolean conditions. The standard `template_render(string, Json) -> string` function performs one pass; inserted values stay literal. Compile it with `lmscript --no-preflight examples/text-template.lms build/text-template.dslb`, then run the sample host with `--dsl build/text-template.dslb`.
 
 The lmscript-driven suite runs 108 cases, including template success/error cases. See the [portable template contract](https://github.com/lmctl-ai/lmcode-cpp/blob/main/std/template.md).
+
+### Invocation return frame
+
+The shop diagnostic and int entry traces retain their previous order. Successful
+`--dsl` execution then appends exactly one SDK `LMCODE_RETURN_BEGIN` / compact JSON /
+`LMCODE_RETURN_END` frame with LF bytes. An unset `$return` emits null. Body and
+entry writes share one owned sink through all item/total calls; failed VM or
+application validation emits no frame. See [ownership and local controls](durable-memory/invocation-return.md).
