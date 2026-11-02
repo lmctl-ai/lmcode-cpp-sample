@@ -2,6 +2,7 @@ VERSION ?= 0.4.0
 CXX ?= c++
 CXXFLAGS ?= -std=c++17 -O2 -Wall -Wextra -Werror -pedantic
 BUILD ?= build
+LMSCRIPT_BIN ?= lmscript
 SDK ?= vendor/lmcode
 SUITE ?= sample-suite
 INCLUDES = -Isrc -I"$(BUILD)" -I"$(SDK)/include" -I"$(SDK)/stdlib"
@@ -22,7 +23,7 @@ test-dry-adoption: $(BUILD)/dry-adoption-test $(BUILD)/lmcode-cpp-sample
 	python3 tests/check-dry-adoption.py "$(abspath $(BUILD)/lmcode-cpp-sample)"
 test: all test-dry-adoption
 	python3 scripts/sync.py check
-	LMCODE_SUITE="$(abspath $(SUITE))" lmscript --no-preflight "$(SUITE)/audit.lms" --std "$(SDK)/std/lmcode-std.schema.json"
+	LMCODE_SUITE="$(abspath $(SUITE))" $(LMSCRIPT_BIN) "$(SUITE)/audit.lms" --std "$(SDK)/std/lmcode-std.schema.json"
 	bash "$(SUITE)/run-suite.sh" "$(abspath $(BUILD)/lmcode-cpp-sample)"
 	python3 sample-suite/check-invocations.py "$(abspath $(BUILD)/lmcode-cpp-sample)"
 clean:
