@@ -23,7 +23,12 @@ Host::Host() {
     registry.function("fee", {"int"}, "int", [](Args& a) {
         return Value::integer(add(a[0].i, 5));
     });
-    auto sample_tmp = [this](Args&) {
+    // Only instrumented builds access the host counter; ordinary builds need no capture.
+    auto sample_tmp = [
+#ifdef H6_TEST_COUNTERS
+        this
+#endif
+    ](Args&) {
 #ifdef H6_TEST_COUNTERS
         ++sample_tmp_calls;
 #endif
