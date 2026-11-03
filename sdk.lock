@@ -1,22 +1,22 @@
 {
   "repo": "lmctl-ai/lmcode-cpp",
-  "commit": "9525cac86376d4dc7bcc3268fac695a7bfbde2ac",
+  "commit": "eed67ea5f059152809784846d82bd510bb5bcdf2",
   "sha256": {
     "LICENSE": "949eb9b711d9b64ae472b87b94916e8427575a75d0d218f6c4cbccf8c48d46f3",
-    "include/dslvm.hpp": "845eeacc9f2306a2285aee1100fbc9b459f8e26ca59f59112fd012cdc116df2b",
+    "include/dslvm.hpp": "80d6b69edd486b24f5c477a2bae40f9a29cee67100f80174daf1899dd1a62c48",
     "std/lmcode-std.schema.json": "1defd1be67bf11cf1780f7d890059cd2ac6fd506a7b7fa578e31b5ef124aa221",
-    "stdlib/collections.hpp": "d2e434b54bc4ad5c0b26015201e5b90c40a67e09547e72e29581eb1a870840aa",
+    "stdlib/collections.hpp": "1f35322dc05c129ece31bc0b1e7b217018e0270e83cae3c33b4aad378f48622d",
     "stdlib/containers.hpp": "1cd9c85d3c8953465a79675340c8704664870fc84fcb592ba508d7d2ca06490f",
     "stdlib/encoding.hpp": "44a269d29ffd02ea5deeb48c773de7a5a1161cfa6f27319c65e95184be4aafb9",
     "stdlib/file.hpp": "7ed64f1bb802f53d3742ef721e97099ccbd53edcb4084a3cc4b75a7cdb28e10d",
-    "stdlib/invocation.hpp": "129df0b6890d8e5f8b39a27e9cb175cf3f9160545c641811eaff124add4e2f47",
+    "stdlib/invocation.hpp": "2d7285ab422e14812e86064e5535283226cfe91e8bd2127c46eca89b6718bda5",
     "stdlib/json.hpp": "3baff1069d6de76128b656f095053eb65677f3c7e5b603454aa72465078e5a49",
     "stdlib/math.hpp": "d88db7a12524706e14030f97822f1be4fcf3555c54b0dc5e4ea1e55420b514e4",
     "stdlib/result.hpp": "2ae776236805e7d5758d77e6c49e4655ab640d7f794b5aec7b47144383e0051d",
     "stdlib/result_contract.hpp": "985be61282577bb424ac37ecb91aa3f51a8b8d729c53cdc74e8c52503944be94",
     "stdlib/result_json.hpp": "9039c980b3b0df968beecee0e32cb271390a46d3c2e3b151769a532401a9410e",
-    "stdlib/std.hpp": "1e5a07b3a4130e12261caef3c75819a32e07260a3e1b0ac78da7a3bf2f7380b0",
-    "stdlib/string.hpp": "a5decf394c0005559c60035d01b5f715d631de1a47586a95a2261fe6314e19e1",
+    "stdlib/std.hpp": "aaff52a257529a5a730e7fdd24df13d559fc78d8b07d08ae37fd09820feacd02",
+    "stdlib/string.hpp": "1f4da23339149126460cf47ca5182ff58f87418700b6a4f6a80bbc79115239ae",
     "stdlib/testing.hpp": "f56d0c67694bfa2b0c1032302e42f583f9f118829bf5b80f4450d7379bf3e1ff"
   }
 }
